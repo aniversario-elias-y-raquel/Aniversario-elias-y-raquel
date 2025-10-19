@@ -126,7 +126,7 @@
             animation: spin 3s linear infinite;
         }
 
-        /* Estilo del Brazo (Tone Arm) - MEJORADO */
+        
         .tone-arm {
             position: absolute;
             top: -25px;
@@ -189,13 +189,13 @@
 </head>
 <body class="bg-cream-white min-h-screen text-dark-bg font-serif">
 
-    <!-- Audio Player -->
+
     <audio id="platter-audio" loop>
         <source src="https://aniversario-elias-y-raquel.github.io/Aniversario-elias-y-raquel/only.mp3" type="audio/mp3">
         Tu navegador no soporta el elemento de audio.
     </audio>
 
-    <!-- Script de Inicialización y Funcionalidad -->
+   
     <script>
         let audioInitialized = false;
         let isPlaying = false;
@@ -286,7 +286,7 @@
                 }
             });
 
-            // Contador Regresivo (mantener igual)
+            // Contador Regresivo 
             const countdownElement = document.getElementById('countdown');
             const eventDate = new Date('2025-12-27T17:30:00-06:00').getTime(); 
 
@@ -329,7 +329,7 @@
         };
     </script>
 
-    <!-- Sección Principal / Hero -->
+
     <header class="header-flexible-height items-center text-center p-4">
         
         <div class="absolute inset-0 bg-cover bg-center" 
@@ -346,27 +346,27 @@
                 50 Aniversario · Bodas de Oro
             </p>
             
-            <!-- Contador Regresivo -->
+
             <div id="countdown" class="flex justify-center text-cream-white mb-8 sm:mb-12 opacity-0 animate-fade-in" style="animation-delay: 1.5s;">
                 <!-- El contador se renderiza aquí -->
             </div>
 
-            <!-- TOCADISCOS CORREGIDO -->
+           
             <div class="flex flex-col items-center justify-center p-6 sm:p-8 bg-dark-bg/70 backdrop-blur-sm rounded-xl shadow-2xl mx-auto max-w-xs sm:max-w-sm animate-fade-in delay-4">
                 <p class="text-sm uppercase tracking-widest text-gold-accent mb-4 font-sans font-bold">Nuestra Canción</p>
                 <br>
                 <div class="record-container">
-                    <!-- Base del tocadiscos -->
+                  
                     <div class="turntable-base"></div>
                     
-                    <!-- Disco de vinilo -->
+                  
                     <div id="record" class="record flex items-center justify-center">
                         <div class="record-center">
                             <i data-lucide="disc-3" class="w-3 h-3 text-dark-bg"></i>
                         </div>
                     </div>
                     
-                    <!-- Brazo del tocadiscos -->
+                  
                     <div id="tone-arm" class="tone-arm"></div>
                 </div>
 
@@ -386,7 +386,7 @@
         </div>
     </header>
 
-    <!-- El resto del HTML se mantiene igual -->
+
     <main class="container mx-auto px-4 py-16 sm:py-24">
         <!-- Sección de Detalles del Evento -->
         <section id="detalles" class="mb-20 sm:mb-28 text-center">
@@ -396,7 +396,7 @@
                 </h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-y-10 md:gap-y-0 md:gap-x-12">
-                    <!-- Fecha y Hora -->
+       
                     <div class="p-4 border-b md:border-b-0 md:border-r border-gold-accent/30">
                         <i data-lucide="calendar-check" class="w-10 h-10 mx-auto mb-4 text-gold-accent fill-gold-accent/10"></i>
                         <h3 class="text-2xl sm:text-3xl font-bold mb-2 font-serif text-dark-bg">Día y Horario</h3>
@@ -404,7 +404,7 @@
                         <p class="text-2xl sm:text-3xl font-extrabold text-gold-accent mt-2">17:30 hrs - 23:00 hrs</p>
                     </div>
 
-                    <!-- Vestimenta -->
+       
                     <div class="p-4 border-b md:border-b-0 md:border-r border-gold-accent/30">
                         <div class="flex justify-center items-center mb-4 space-x-3">
                             <i data-lucide="bowtie" class="w-9 h-9 text-gold-accent"></i>
@@ -415,7 +415,7 @@
                         <p class="text-sm text-gray-600 mt-1">Agradecemos su formalidad para la ocasión.</p>
                     </div>
                     
-                    <!-- Ubicación -->
+    
                     <div class="p-4">
                         <i data-lucide="map-pin" class="w-10 h-10 mx-auto mb-4 text-gold-accent fill-gold-accent/10"></i>
                         <h3 class="text-2xl sm:text-3xl font-bold mb-2 font-serif text-dark-bg">Recepción</h3>
@@ -427,7 +427,7 @@
             </div>
         </section>
 
-        <!-- Sección de RSVP -->
+
         <section id="rsvp" class="mb-20 sm:mb-28">
             <div class="max-w-xl mx-auto p-8 sm:p-14 bg-dark-bg rounded-3xl shadow-3xl border-4 border-gold-accent">
                 <h2 class="text-4xl sm:text-5xl text-center gold-text-effect font-script text-gold-accent mb-8">
@@ -446,7 +446,7 @@
             </div>
         </section>
 
-        <!-- Sección de Ubicación -->
+
         <section id="ubicacion" class="mb-12 sm:mb-20 text-center">
             <h2 class="text-5xl sm:text-6xl gold-text-effect font-script text-gold-accent mb-8">
                 Cómo Llegar
