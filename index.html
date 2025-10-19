@@ -185,6 +185,89 @@
                 inset 0 2px 10px rgba(255, 255, 255, 0.1);
             z-index: 1;
         }
+
+        /* Easter Egg Styles */
+        .easter-egg-trigger {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            opacity: 0.1;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+
+        .easter-egg-trigger:hover {
+            opacity: 0.3;
+        }
+
+        .easter-egg-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .easter-egg-content {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 15px;
+            border: 3px solid #C9A35E;
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .close-easter-egg {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: #C9A35E;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            color: #0F0F0F;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .password-input {
+            background: #2a2a2a;
+            border: 2px solid #C9A35E;
+            border-radius: 8px;
+            padding: 10px;
+            color: #F5F5DC;
+            margin-bottom: 10px;
+            width: 200px;
+        }
+
+        .password-submit {
+            background: #C9A35E;
+            color: #0F0F0F;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .password-error {
+            color: #ff6b6b;
+            margin-top: 5px;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body class="bg-cream-white min-h-screen text-dark-bg font-serif">
@@ -195,10 +278,82 @@
         Tu navegador no soporta el elemento de audio.
     </audio>
 
-   
+    <!-- Easter Egg Trigger -->
+    <div class="easter-egg-trigger" onclick="showEasterEgg()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#C9A35E" stroke-width="2">
+            <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/>
+            <path d="M12 8v8M8 12h8"/>
+        </svg>
+    </div>
+
+    <!-- Easter Egg Modal -->
+    <div id="easterEggModal" class="easter-egg-modal">
+        <div class="easter-egg-content">
+            <button class="close-easter-egg" onclick="closeEasterEgg()">×</button>
+            <div id="passwordSection">
+                <h3 class="text-gold-accent text-center mb-4">🔐 Easter Egg Secreto</h3>
+                <input type="password" id="easterEggPassword" class="password-input" placeholder="Ingresa la contraseña..." onkeypress="handlePasswordKeypress(event)">
+                <button class="password-submit w-full" onclick="checkEasterEggPassword()">Desbloquear</button>
+                <div id="passwordError" class="password-error hidden">Contraseña incorrecta. ¡Sigue intentando!</div>
+            </div>
+            <div id="videoSection" class="hidden">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/inUVmo3gsok?si=IodZblfsjxyjwFN3" 
+                        title="YouTube video player" frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                </iframe>
+                <p class="text-cream-white text-center mt-4">¡Felicitaciones! Has encontrado el Easter Egg 🦇</p>
+            </div>
+        </div>
+    </div>
+
     <script>
         let audioInitialized = false;
         let isPlaying = false;
+
+        // Easter Egg Functions
+        function showEasterEgg() {
+            document.getElementById('easterEggModal').style.display = 'flex';
+            document.getElementById('passwordSection').classList.remove('hidden');
+            document.getElementById('videoSection').classList.add('hidden');
+            document.getElementById('easterEggPassword').value = '';
+            document.getElementById('passwordError').classList.add('hidden');
+        }
+
+        function closeEasterEgg() {
+            document.getElementById('easterEggModal').style.display = 'none';
+        }
+
+        function handlePasswordKeypress(event) {
+            if (event.key === 'Enter') {
+                checkEasterEggPassword();
+            }
+        }
+
+        function checkEasterEggPassword() {
+            const password = document.getElementById('easterEggPassword').value;
+            const errorElement = document.getElementById('passwordError');
+            
+            if (password.toLowerCase() === 'batman') {
+                document.getElementById('passwordSection').classList.add('hidden');
+                document.getElementById('videoSection').classList.remove('hidden');
+                errorElement.classList.add('hidden');
+            } else {
+                errorElement.classList.remove('hidden');
+                // Efecto de shake en el input
+                document.getElementById('easterEggPassword').style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    document.getElementById('easterEggPassword').style.animation = '';
+                }, 500);
+            }
+        }
+
+        // Cerrar modal al hacer click fuera del contenido
+        document.getElementById('easterEggModal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                closeEasterEgg();
+            }
+        });
 
         window.onload = function() {
             lucide.createIcons();
@@ -328,7 +483,14 @@
             updateCountdown();
         };
     </script>
-     <!-- Que haces de chismoso viendo el codigo raton atte... el raton vaquero que trato de no volverse loco... nah no se creas soy el luis xdddd -->
+
+    <style>
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+    </style>
 
     <header class="header-flexible-height items-center text-center p-4">
         
@@ -377,7 +539,6 @@
                 
                 <p class="text-xs text-gray-400 mt-3">"Only You (And You Alone)" - The Platters</p>
                 
-                   <!-- Que haces de chismoso viendo el codigo raton atte... el raton vaquero que trato de no volverse loco... nah no se creas soy el luis xdddd -->
                 <p id="audio-error-message" class="hidden text-xs text-red-400 mt-2 text-center font-sans">
                     Error: No se pudo reproducir el audio.
                 </p>
@@ -386,9 +547,7 @@
         </div>
     </header>
 
-
     <main class="container mx-auto px-4 py-16 sm:py-24">
-        <!-- Que haces de chismoso viendo el codigo raton atte... el raton vaquero que trato de no volverse loco... nah no se creas soy el luis xdddd -->
         <section id="detalles" class="mb-20 sm:mb-28 text-center">
             <div class="max-w-5xl mx-auto p-6 sm:p-16 bg-white rounded-3xl shadow-3xl border-t-8 border-b-8 border-double border-gold-accent/70">
                 <h2 class="text-5xl sm:text-6xl gold-text-effect font-script text-gold-accent mb-10 sm:mb-12">
@@ -396,7 +555,6 @@
                 </h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-y-10 md:gap-y-0 md:gap-x-12">
-       
                     <div class="p-4 border-b md:border-b-0 md:border-r border-gold-accent/30">
                         <i data-lucide="calendar-check" class="w-10 h-10 mx-auto mb-4 text-gold-accent fill-gold-accent/10"></i>
                         <h3 class="text-2xl sm:text-3xl font-bold mb-2 font-serif text-dark-bg">Día y Horario</h3>
@@ -404,7 +562,6 @@
                         <p class="text-2xl sm:text-3xl font-extrabold text-gold-accent mt-2">17:30 hrs - 23:00 hrs</p>
                     </div>
 
-       
                     <div class="p-4 border-b md:border-b-0 md:border-r border-gold-accent/30">
                         <div class="flex justify-center items-center mb-4 space-x-3">
                             <i data-lucide="bowtie" class="w-9 h-9 text-gold-accent"></i>
@@ -415,7 +572,6 @@
                         <p class="text-sm text-gray-600 mt-1">Agradecemos su formalidad para la ocasión.</p>
                     </div>
                     
-    
                     <div class="p-4">
                         <i data-lucide="map-pin" class="w-10 h-10 mx-auto mb-4 text-gold-accent fill-gold-accent/10"></i>
                         <h3 class="text-2xl sm:text-3xl font-bold mb-2 font-serif text-dark-bg">Recepción</h3>
@@ -426,7 +582,6 @@
                 </div>
             </div>
         </section>
-
 
         <section id="rsvp" class="mb-20 sm:mb-28">
             <div class="max-w-xl mx-auto p-8 sm:p-14 bg-dark-bg rounded-3xl shadow-3xl border-4 border-gold-accent">
@@ -445,7 +600,6 @@
                 </a>
             </div>
         </section>
-
 
         <section id="ubicacion" class="mb-12 sm:mb-20 text-center">
             <h2 class="text-5xl sm:text-6xl gold-text-effect font-script text-gold-accent mb-8">
